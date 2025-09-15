@@ -1,0 +1,33 @@
+[
+  {
+    "branchId": "B001",
+    "books": [
+      {
+        "id": "BK1",
+        "title": "Effective Java",
+        "author": "Joshua Bloch",
+        "isbn": "9780134685991",
+        "publicationYear": 2018
+      },
+      {
+        "id": "BK2",
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "isbn": "9780132350884",
+        "publicationYear": 2008
+      }
+    ]
+  },
+  {
+    "branchId": "B002",
+    "books": [
+      {
+        "id": "BK3",
+        "title": "Design Patterns",
+        "author": "Erich Gamma",
+        "isbn": "9780201633610",
+        "publicationYear": 1994
+      }
+    ]
+  }
+]
