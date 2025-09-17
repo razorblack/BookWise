@@ -39,4 +39,14 @@ public class ConfigFileReader {
     public String getPropertyValue(String property) {
         return properties.getProperty(property);
     }
+
+    /**
+     * Method to get the configuration properties with default value
+     * @param property Config property key
+     * @param defaultValue Default value if property is not found
+     * @return Config property value if present, otherwise defaultValue
+     */
+    public String getPropertyValue(String property, String defaultValue) {
+        return properties.getProperty(property, defaultValue);
+    }
 }
