@@ -24,8 +24,8 @@ public class App {
     private static final String APP_NAME;
     private static final LibraryManager libraryManager;
     static {
-        libraryManager = LibraryManager.getInstance();
         loadConfiguration();
+        libraryManager = LibraryManager.getInstance();
         APP_NAME = ConfigFileReader.CONFIG.getPropertyValue(APPLICATION_NAME);
         init();
     }
