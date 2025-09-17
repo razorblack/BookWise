@@ -36,4 +36,16 @@
             <version>2.20.0</version>
         </dependency>
     </dependencies>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.5.0</version>
+                    <configuration>
+                        <mainClass>me.razorblack.bookwise.App</mainClass>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
 </project>
