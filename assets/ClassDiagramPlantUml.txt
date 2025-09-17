@@ -1,0 +1,171 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "me.razorblack.bookwise" {
+    class App {
+        + main(String[] args)
+    }
+}
+
+package "me.razorblack.bookwise.constants" {
+    class BaseConstants {
+    }
+}
+
+package "me.razorblack.bookwise.model" {
+    class Book {
+        - String bookId
+        - String title
+        - String author
+        - String isbn
+        - int publicationYear
+        - boolean isAvailable
+    }
+
+    class Patron {
+        - String name
+        - String id
+        - String contact
+        - List<String> borrowingHistory
+    }
+
+    class Loan {
+        - String loanId
+        - String bookId
+        - String isbn
+        - String patronId
+        - LocalDate checkoutDate
+        - LocalDate dueDate
+        - LocalDate returnDate
+    }
+}
+
+package "me.razorblack.bookwise.service" {
+    class BookService {
+        + addNewBook(String isbn, String title, String author, int year)
+        + getAllBooks() : List<Book>
+        + updateBook(String id, String title, String author, int year)
+        + removeBook(String bookId)
+        + getAllBorrowedBooks() : List<Book>
+        + getAllAvailableBooks() : List<Book>
+        + searchByAuthor(String author) : List<Book>
+        + searchByTitle(String title) : List<Book>
+        + findBookByISBN(String isbn) : List<Book>
+    }
+
+    class PatronService {
+        + addPatron(String name, String contact)
+        + updatePatron(String id, String name, String contact)
+        + getAllPatrons() : List<Patron>
+    }
+
+    class LoanService {
+        + checkout(String isbn, String patronId) : Loan
+        + returnBook(String isbn, String patronId)
+        + returnBook(String loanId)
+    }
+}
+
+package "me.razorblack.bookwise.repository" {
+    interface BookRepository {
+        + save(Book book)
+        + findById(String id) : Book
+        + findAll() : List<Book>
+        + delete(String id)
+        + getInstance() : BookRepository
+    }
+
+    interface PatronRepository {
+        + save(Patron patron)
+        + findById(String id) : Patron
+        + findAll() : List<Patron>
+        + delete(String id)
+        + getInstance() : PatronRepository
+    }
+
+    interface LoanRepository {
+        + save(Loan loan)
+        + findById(String id) : Loan
+        + getInstance() : LoanRepository
+    }
+
+    class InMemoryBookRepository implements BookRepository {
+        + save(Book book)
+        + findById(String id) : Book
+        + findAll() : List<Book>
+        + delete(String id)
+    }
+
+    class InMemoryPatronRepository implements PatronRepository {
+        + save(Patron patron)
+        + findById(String id) : Patron
+        + findAll() : List<Patron>
+        + delete(String id)
+    }
+
+    class InMemoryLoanRepository implements LoanRepository {
+        + save(Loan loan)
+        + findById(String id) : Loan
+    }
+}
+
+package "me.razorblack.bookwise.util" {
+    class JsonFileReader {
+        + readJson(String resourcePath) : JsonNode
+    }
+
+    class ConfigFileReader {
+        + getProperty(String key) : String
+        + loadConfig()
+    }
+}
+
+package "me.razorblack.bookwise.library" {
+    class LibraryManager {
+        - BookService bookService
+        - PatronService patronService
+        - LoanService loanService
+        + bootstrapSampleData()
+        + getInstance()
+    }
+}
+
+package "me.razorblack.bookwise.exception" {
+    exception PatronNotFoundException {
+        + PatronNotFoundException(String message)
+    }
+
+    exception ConfigurationNotFoundException {
+        + ConfigurationNotFoundException(String message)
+    }
+
+    exception BookUnavailableExeption {
+        + BookUnavailableExeption(String message)
+    }
+
+    exception BookNotFoundException {
+        + BookNotFoundException(String message)
+    }
+}
+
+App -> JsonFileReader
+App -> ConfigFileReader
+App -> LibraryManager
+InMemoryBookRepository ..|> BookRepository
+InMemoryPatronRepository ..|> PatronRepository
+InMemoryLoanRepository ..|> LoanRepository
+BookService --> Book
+BookService --> BookRepository
+PatronService --> Patron
+PatronService --> PatronRepository
+LoanService --> Loan
+LoanService --> LoanRepository
+LoanService --> BookRepository
+LoanService --> PatronRepository
+LibraryManager --> BookService
+LibraryManager --> PatronService
+LibraryManager --> LoanService
+LibraryManager --> LoanRepository
+LibraryManager --> BookRepository
+LibraryManager --> PatronRepository
+@enduml
