@@ -1,25 +1,22 @@
 package me.razorblack.bookwise.repository;
 
 import me.razorblack.bookwise.exception.ConfigurationNotFoundException;
-import me.razorblack.bookwise.model.Book;
+import me.razorblack.bookwise.model.Loan;
 import me.razorblack.bookwise.util.ConfigFileReader;
-
-import java.util.List;
-import java.util.Optional;
 
 import static me.razorblack.bookwise.constants.BaseConstants.APP_DATA_STORAGE;
 import static me.razorblack.bookwise.constants.BaseConstants.IN_MEMORY;
 
-public interface BookRepository {
-    void save(Book book);
-    Optional<Book> findById(String id);
-    List<Book> findAll();
-    void delete(String bookId);
-    static BookRepository getInstance() {
+public interface LoanRepository {
+    static LoanRepository getInstance() {
         if (ConfigFileReader.CONFIG.getPropertyValue(APP_DATA_STORAGE).equals(IN_MEMORY)) {
-            return new InMemoryBookRepository();
+            return new InMemoryLoanRepository();
         } else {
             throw new ConfigurationNotFoundException("Data storage configuration is not provided correctly.");
         }
     }
+
+    void save(Loan loan);
+
+    Loan findById(String loanId);
 }

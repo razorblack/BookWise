@@ -1,20 +1,30 @@
 package me.razorblack.bookwise.model;
 
-import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
-@Data
-@RequiredArgsConstructor
+@Getter
+@Setter
 public class Patron {
-    @NonNull
+    private static final AtomicInteger patronCounter = new AtomicInteger(1);
     private final String id;
-    @NonNull
     private String name;
     private String contact;
-    // Borrowing history (loan ids or Loan objects)
+    // Borrowing history loan ids
     private final List<String> borrowingHistory = new ArrayList<>();
+
+    public Patron(String id, String name, String contact) {
+        this.id = id;
+        this.name = name;
+        patronCounter.incrementAndGet();
+    }
+
+    public Patron(String name, String contact) {
+        this.id = "P" + patronCounter.incrementAndGet();
+        this.name = name;
+    }
 }

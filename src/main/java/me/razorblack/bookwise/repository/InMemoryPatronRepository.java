@@ -7,6 +7,7 @@ import java.util.*;
 
 @Slf4j
 public class InMemoryPatronRepository implements PatronRepository {
+    // Patron Storage:  ID -> Patron
     private final Map<String, Patron> store = new HashMap<>();
 
     @Override
@@ -20,13 +21,14 @@ public class InMemoryPatronRepository implements PatronRepository {
         return Optional.ofNullable(store.get(id));
     }
 
+
     @Override
     public List<Patron> findAll() {
         return new ArrayList<>(store.values());
     }
 
     @Override
-    public void deleteById(String id) {
+    public void delete(String id) {
         store.remove(id);
         log.info("Deleted patron: {}", id);
     }

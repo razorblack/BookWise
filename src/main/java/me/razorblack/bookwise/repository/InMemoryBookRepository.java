@@ -7,17 +7,18 @@ import java.util.*;
 
 @Slf4j
 public class InMemoryBookRepository implements BookRepository {
+    // Book storage <Book Id, Book>
     private final Map<String, Book> store = new HashMap<>();
 
     @Override
     public void save(Book book) {
-        store.put(book.getIsbn(), book);
-        log.info("Saved book: {}", book.getIsbn());
+        store.put(book.getBookId(), book);
+        log.info("Saved book: {}", book.getBookId());
     }
 
     @Override
-    public Optional<Book> findByIsbn(String isbn) {
-        return Optional.ofNullable(store.get(isbn));
+    public Optional<Book> findById(String bookId) {
+        return Optional.ofNullable(store.get(bookId));
     }
 
     @Override
@@ -26,8 +27,8 @@ public class InMemoryBookRepository implements BookRepository {
     }
 
     @Override
-    public void deleteByIsbn(String isbn) {
-        store.remove(isbn);
-        log.info("Deleted book: {}", isbn);
+    public void delete(String id) {
+        store.remove(id);
+        log.warn("Removed book: {}", id);
     }
 }
