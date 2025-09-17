@@ -8,6 +8,9 @@ import me.razorblack.bookwise.service.BookService;
 import me.razorblack.bookwise.service.LoanService;
 import me.razorblack.bookwise.service.PatronService;
 
+/**
+ * Singleton class to manage the library system
+ */
 public class LibraryManager {
     private static LibraryManager instance;
     private final BookRepository bookRepository;
@@ -30,6 +33,10 @@ public class LibraryManager {
         this.loanService = new LoanService(bookRepository, patronRepository, loanRepository);
     }
 
+    /**
+     * Method to get the singleton instance of LibraryManager
+     * @return LibraryManager instance
+     */
     public static LibraryManager getInstance() {
         if (instance == null) {
             instance = new LibraryManager();
@@ -45,9 +52,15 @@ public class LibraryManager {
         loadPatronData();
     }
 
+    /**
+     * Method to load initial seed data for patrons from the json file
+     */
     private void loadPatronData() {
     }
 
+    /**
+     * Method to load initial seed data for books from the json file
+     */
     private void loadBooksData() {
         
     }

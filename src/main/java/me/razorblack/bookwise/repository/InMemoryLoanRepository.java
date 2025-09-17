@@ -5,6 +5,9 @@ import me.razorblack.bookwise.model.Loan;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * In-memory implementation of the LoanRepository interface.
+ */
 public class InMemoryLoanRepository implements LoanRepository {
     // Loan Repo: loanId -> Loan
     private final Map<String, Loan> loans = new HashMap<>();

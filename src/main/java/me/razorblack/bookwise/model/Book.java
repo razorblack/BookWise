@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Represents a book in the library system.
+ */
 @Getter
 @Setter
 public class Book {

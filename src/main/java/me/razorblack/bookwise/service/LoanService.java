@@ -13,6 +13,9 @@ import me.razorblack.bookwise.repository.PatronRepository;
 
 import java.time.LocalDate;
 
+/**
+ * Service for managing book loans.
+ */
 @Slf4j
 public class LoanService {
     private final BookRepository bookRepository;
@@ -25,6 +28,13 @@ public class LoanService {
         this.loanRepository = loanRepository;
     }
 
+    /**
+     * Checkout a book to a patron for a specified number of days.
+     * @param bookId id of book for checkout
+     * @param patronId id of patron checking out the book
+     * @param days number of days to loan the book
+     * @return the created Loan
+     */
     public Loan checkout(String bookId, String patronId, int days) {
         Book book = bookRepository.findById(bookId).orElseThrow(() -> new BookNotFoundException("Book not found: " + bookId));
         if (!book.isAvailable()) {
@@ -51,6 +61,10 @@ public class LoanService {
         return loan;
     }
 
+    /**
+     * Return a book by loan ID.
+     * @param loanId the ID of the loan to return
+     */
     public void returnBook(String loanId) {
         Loan loan = loanRepository.findById(loanId);
         if (loan == null) {
@@ -69,6 +83,11 @@ public class LoanService {
         log.info("Returned book {} from loan {}", loan.getIsbn(), loanId);
     }
 
+    /**
+     * Return a book by patron ID and book ID.
+     * @param patronId ID of the patron returning the book
+     * @param bookId ID of the book to return
+     */
     public void returnBook(String patronId, String bookId) {
         Patron patron = patronRepository.findById(patronId).orElseThrow(() -> new PatronNotFoundException("Patron not found: " + patronId));
         // find active loan for this book and patron

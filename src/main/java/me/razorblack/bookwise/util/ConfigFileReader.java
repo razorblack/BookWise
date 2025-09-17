@@ -8,6 +8,9 @@ import java.util.Properties;
 
 import static me.razorblack.bookwise.constants.BaseConstants.*;
 
+/**
+ * Class to read configuration file
+ */
 @Slf4j
 public class ConfigFileReader {
     private static final String CONFIG_FILE = SRC + SEPARATOR + MAIN + SEPARATOR + RESOURCES + SEPARATOR + CONFIG_FILE_NAME;

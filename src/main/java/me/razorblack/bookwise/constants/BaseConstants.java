@@ -2,6 +2,9 @@ package me.razorblack.bookwise.constants;
 
 import java.io.File;
 
+/**
+ * Class to hold base constants used across the application
+ */
 public class BaseConstants {
     public static final String SEPARATOR = File.separator;
     public static final String SRC = "src";

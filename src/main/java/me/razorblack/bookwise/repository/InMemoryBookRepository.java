@@ -5,6 +5,9 @@ import me.razorblack.bookwise.model.Book;
 
 import java.util.*;
 
+/**
+ * In-memory implementation of the BookRepository interface.
+ */
 @Slf4j
 public class InMemoryBookRepository implements BookRepository {
     // Book storage <Book Id, Book>

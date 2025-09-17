@@ -16,6 +16,9 @@ import java.util.Scanner;
 import static me.razorblack.bookwise.constants.BaseConstants.APPLICATION_NAME;
 import static me.razorblack.bookwise.constants.BaseConstants.DEFAULT_BORROW_DAYS;
 
+/**
+ * Main Application class for Library Management System
+ */
 @Slf4j
 public class App {
     private static final String APP_NAME;
@@ -35,14 +38,24 @@ public class App {
         loadSeedData();
     }
 
+    /**
+     * Loading seed data for books and patrons
+     */
     private static void loadSeedData() {
         libraryManager.bootstrapSampleData();
     }
 
+    /**
+     * Loading configuration from config file
+     */
     private static void loadConfiguration() {
         ConfigFileReader.loadConfig();
     }
 
+    /**
+     * Main method - Entry point of the application
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -110,6 +123,9 @@ public class App {
         log.info("Thanks for using " + APP_NAME + "!");
     }
 
+    /**
+     * List all borrowed books
+     */
     private static void listBorrowedBooks() {
         List<Book> borrowedBooks = libraryManager.getBookService().getAllBorrowedBooks();
         for (Book book : borrowedBooks) {
@@ -117,6 +133,9 @@ public class App {
         }
     }
 
+    /**
+     * List all available books
+     */
     private static void listAvailableBooks() {
         List<Book> availableBooks = libraryManager.getBookService().getAllAvailableBooks();
         for (Book book : availableBooks) {
@@ -124,6 +143,10 @@ public class App {
         }
     }
 
+    /**
+     * Update patron details
+     * @param scanner Scanner object for user input
+     */
     private static void updatePatronDetails(Scanner scanner) {
         log.info("Enter Patron ID to update: ");
         String patronId = scanner.nextLine();
@@ -139,6 +162,10 @@ public class App {
         }
     }
 
+    /**
+     * Add new patron to the library
+     * @param scanner Scanner object for user input
+     */
     private static void addNewPatron(Scanner scanner) {
         log.info("Enter patron name: ");
         String name = scanner.nextLine();
@@ -148,6 +175,10 @@ public class App {
         libraryManager.getPatronService().addPatron(name, contact);
     }
 
+    /**
+     * Update book details
+     * @param scanner Scanner object for user input
+     */
     private static void updateBookDetails(Scanner scanner) {
         log.info("Enter Book ID to update: ");
         String bookId = scanner.nextLine();
@@ -166,12 +197,20 @@ public class App {
         }
     }
 
+    /**
+     * Remove book from the library
+     * @param scanner Scanner object for user input
+     */
     private static void removeBookFromLibrary(Scanner scanner) {
         log.info("Enter Book ID to remove: ");
         String bookId = scanner.nextLine();
         libraryManager.getBookService().removeBook(bookId);
     }
 
+    /**
+     * Add new book to the library
+     * @param scanner Scanner object for user input
+     */
     private static void addNewBook(Scanner scanner) {
         log.info("Enter book title: ");
         String title = scanner.nextLine();
@@ -186,15 +225,23 @@ public class App {
         libraryManager.getBookService().addNewBook(isbn, title, author, year);
     }
 
+    /**
+     * List books by ISBN
+     * @param scanner Scanner object for user input
+     */
     private static void listBooksByISBN(Scanner scanner) {
         log.info("Enter book ISBN");
         String isbn = scanner.nextLine();
-        List<Book> books = libraryManager.getBookService().findBookByISNB(isbn);
+        List<Book> books = libraryManager.getBookService().findBookByISBN(isbn);
         for (Book book : books) {
             log.info(book.getBookId() + " - " + book.getTitle() + " by " + book.getAuthor());
         }
     }
 
+    /**
+     * List books by author
+     * @param scanner Scanner object for user input
+     */
     private static void listBooksByAuthor(Scanner scanner) {
         log.info("Enter author name");
         String author = scanner.nextLine();
@@ -204,6 +251,10 @@ public class App {
         }
     }
 
+    /**
+     * List books by title
+     * @param scanner Scanner object for user input
+     */
     private static void listBooksByTitle(Scanner scanner) {
         log.info("Enter book title");
         String title = scanner.nextLine();
@@ -213,6 +264,9 @@ public class App {
         }
     }
 
+    /**
+     * List all books in the library
+     */
     private static void listAllBooks() {
         List<Book> allBooks = libraryManager.getBookService().getAllBooks();
         for (Book book : allBooks) {
@@ -221,6 +275,9 @@ public class App {
         }
     }
 
+    /**
+     * List all patrons in the library
+     */
     private static void listAllPatrons() {
         List<Patron> allPatrons = libraryManager.getPatronService().getAllPatrons();
         for (Patron patron : allPatrons) {
@@ -228,6 +285,10 @@ public class App {
         }
     }
 
+    /**
+     * Borrow book from the library
+     * @param scanner Scanner object for user input
+     */
     private static void borrowBook(Scanner scanner) {
         log.info("Enter Patron ID: ");
         String patronId = scanner.nextLine();
@@ -246,6 +307,10 @@ public class App {
         }
     }
 
+    /**
+     * Return book to the library
+     * @param scanner Scanner object for user input
+     */
     private static void returnBook(Scanner scanner) {
         log.info("Do you have load id? (y/n) ");
         String hasLoanId = scanner.nextLine();

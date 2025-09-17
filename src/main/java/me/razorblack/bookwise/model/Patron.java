@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Patron class representing a library patron.
+ */
 @Getter
 @Setter
 public class Patron {

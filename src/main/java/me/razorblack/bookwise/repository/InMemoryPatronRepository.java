@@ -5,6 +5,9 @@ import me.razorblack.bookwise.model.Patron;
 
 import java.util.*;
 
+/**
+ * In-memory implementation of the PatronRepository interface.
+ */
 @Slf4j
 public class InMemoryPatronRepository implements PatronRepository {
     // Patron Storage:  ID -> Patron

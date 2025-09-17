@@ -6,10 +6,18 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.InputStream;
 
+/**
+ * Utility class for reading JSON files from the resource directory.
+ */
 @Slf4j
 public class JsonFileReader {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
+    /**
+     * Reads a JSON file from the resource directory and returns it as a JsonNode.
+     * @param resourcePath the path to the JSON file in the resource directory
+     * @return the JSON content as a JsonNode, or an empty array node if an error occurs
+     */
     public static JsonNode readJson(String resourcePath) {
         try (InputStream inputStream = JsonFileReader.class.getClassLoader().getResourceAsStream(resourcePath)) {
             if (inputStream == null) {
@@ -21,9 +29,5 @@ public class JsonFileReader {
             log.error("Error reading JSON from {}", resourcePath, e);
             return objectMapper.createArrayNode();
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(readJson("data/books.json"));
     }
 }
